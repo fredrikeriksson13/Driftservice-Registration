@@ -91,3 +91,6 @@ C:\Users\java\Desktop\Driftservice-Registration\Driftservice-Registration\bin\Mi
 C:\Users\java\Desktop\Driftservice-Registration\Driftservice-Registration\obj\Debug\Driftservice-Registration.dll
 C:\Users\java\Desktop\Driftservice-Registration\Driftservice-Registration\obj\Debug\Driftservice-Registration.pdb
 C:\Users\java\Desktop\Driftservice-Registration\Driftservice-Registration\obj\Debug\Driftservice-Registration.csprojResolveAssemblyReference.cache
+C:\Users\java\Documents\GitHub\Driftservice-Registration\Driftservice-Registration\Driftservice-Registration\bin\roslyn\csc.exe
+C:\Users\java\Documents\GitHub\Driftservice-Registration\Driftservice-Registration\Driftservice-Registration\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\java\Documents\GitHub\Driftservice-Registration\Driftservice-Registration\Driftservice-Registration\bin\roslyn\Microsoft.CodeAnalysis.dll
