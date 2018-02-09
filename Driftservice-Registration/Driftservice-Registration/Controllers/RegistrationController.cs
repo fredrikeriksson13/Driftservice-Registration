@@ -1,5 +1,6 @@
 ﻿using DriftService.Context;
 using DriftService.Models;
+using reCAPTCHA.MVC;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -36,7 +37,8 @@ namespace DriftService.Controllers
 
         //POST: Contact/Create
         [HttpPost]
-        public async Task <ActionResult> Create(ContactViewModel contactViewModel, int[] SelectedServiceType)
+        [CaptchaValidator]
+        public async Task <ActionResult> Create(ContactViewModel contactViewModel, int[] SelectedServiceType, bool captchaValid)
         {
             try
             {
@@ -46,8 +48,11 @@ namespace DriftService.Controllers
                     contactViewModel.ServiceTypeList.RemoveAll(x => x.PublicServiceType == false);
                     contactViewModel.SelectedSms = contactViewModel.SelectedSms;
                     contactViewModel.SelectedEmail = contactViewModel.SelectedEmail;
-               
-                    if(db.Contacts.Any(x => x.Email == contactViewModel.Email))
+
+                    if (!captchaValid)
+                        ViewBag.Recaptcha = "Vänligen verifiera att du inte är en robot";
+
+                    if (db.Contacts.Any(x => x.Email == contactViewModel.Email))
                     {
                         ModelState.AddModelError("Email","Användare med denna mail är redan registrerad.");
                     }
@@ -123,8 +128,8 @@ namespace DriftService.Controllers
 
                     db.Contacts.Add(contact);
                     db.SaveChanges();
-                    await SendEmailToHelpDesk();
-                    await SendEmailToNewSubscriber(contact);
+                    //await SendEmailToHelpDesk();
+                    //await SendEmailToNewSubscriber(contact);
                     return View("Succesfull");
                 }
             }

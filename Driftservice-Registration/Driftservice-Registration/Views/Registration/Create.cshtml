@@ -8,7 +8,7 @@
         <h2><b>Registrering</b></h2>
     </div>
 </div>
-
+@using reCAPTCHA.MVC
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -114,7 +114,13 @@
                     </div>
                 </div>
             </div>
-
+        <br/>
+        <div>
+            @Html.Recaptcha()
+            <div class="text-danger">
+                @ViewBag.Recaptcha
+            </div>
+        </div>
 
             <div class="row">
                 <div class="col-xs-12 col-md-12 col-lg-12 text-aligin-right">
