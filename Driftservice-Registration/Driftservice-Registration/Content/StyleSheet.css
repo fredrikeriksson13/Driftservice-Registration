@@ -1,0 +1,115 @@
+﻿.jumbotron {
+    background-color: white;
+    border-bottom: 2px solid #000000;
+    border-left: 2px solid #000000;
+    border-right: 2px solid #000000
+}
+
+img {
+    width: 136px;
+    height: 136px;
+}
+
+input {
+    border-radius: 5px;
+}
+
+h2 {
+    text-align: center;
+}
+
+footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    height: 30px;
+    width: 100%;
+    background: #999;
+}
+
+
+.ImageCenter {
+    text-align: center;
+}
+
+.banner {
+    padding: 15px;
+    text-align: center;
+    background-color: #999;
+    border-radius:5px;
+    margin-bottom:15px;
+}
+
+.banner h2{
+    color:white;
+}
+
+.ServiceTypeBlock {
+    border: solid;
+    border-color: black;
+    border-radius: 5px;
+    border-width: 1px;
+    margin: 5px;
+    padding:5px;
+    float: left;
+    min-width:100px;
+}
+
+.ServiceTypeCheckBox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.text-aligin-right {
+    text-align: right;
+}
+
+.text-aligin-left {
+    text-align: left;
+}
+
+.BorderBlack {
+    border: solid;
+    border-color: black;
+    border-radius: 5px;
+    border-width: 1px;
+    text-align: center;
+    min-width: 150px;
+}
+.checkBoxMargin{
+    margin:5px;
+}
+
+.margin-bot-20{
+    margin-bottom:20px;
+}
+
+.border-radius-5px{
+    border-radius: 5px;
+}
+
+.Margin-top-20{
+    margin-top:20px;
+}
+
+.TextboxSubject{
+    resize:none;
+    min-width:280px;
+    min-height:70px;
+    max-height:70px;
+   
+}
+
+.TextboxMessage {
+    resize: none;
+    min-width: 280px;
+    min-height: 130px;
+    max-height: 130px;
+}
+
+#ContactDeleteBtn {
+    display: inline-block;
+    text-align: right;
+    vertical-align: top;
+}
