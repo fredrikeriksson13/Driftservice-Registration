@@ -128,8 +128,8 @@ namespace DriftService.Controllers
 
                     db.Contacts.Add(contact);
                     db.SaveChanges();
-                    //await SendEmailToHelpDesk();
-                    //await SendEmailToNewSubscriber(contact);
+                    await SendEmailToHelpDesk();
+                    await SendEmailToNewSubscriber(contact);
                     return View("Succesfull");
                 }
             }
@@ -158,7 +158,7 @@ namespace DriftService.Controllers
             var messageToHelpDesk = new MailMessage();
             messageToHelpDesk.To.Add(MailAdressToHelpDesk);
             messageToHelpDesk.Subject = "Driftservice: New contact have subscribed";
-            messageToHelpDesk.Body = mailBodyToHelpDesk + "<br/><br/><p>Best Regards!<br/> Driftservice<p>";
+            messageToHelpDesk.Body = mailBodyToHelpDesk + "<br/><br/><p>Best Regards!<br/> Driftservice<br/><p><br/>" + @"<img src=""https://www.coreit.se/wp-content/uploads/2018/01/Corelogo.png"" alt=""CoreITLogo"" height=""30"" width=""130""/>";
             messageToHelpDesk.IsBodyHtml = true;
 
             using (var smtp = new SmtpClient())
@@ -173,8 +173,8 @@ namespace DriftService.Controllers
             string queryString = System.Configuration.ConfigurationManager.AppSettings["UnregisterLink"].ToString() + contact.ContactGuid.ToString();
             string unregiserLink = "<a href='" + queryString + "'>";
             string unregister = unregiserLink + "<center><p style=" + unregisterstyle + ">Klicka här för att avregistrera</p></center></a>";
-
-            string singnatur = "<p>Servicedesk +46 (0)660-729 99<br/>Mail:    helpit@coreit.se<br/>Webb: www.coreit.se<br/>Postadress: Box 407, 891 28 Örnsköldsvik<br/>Besöksadress: Hörneborgsvägen 11, 892 50 Domsjö</p>";
+            string Logga = @"<img src=""https://www.coreit.se/wp-content/uploads/2018/01/Corelogo.png"" alt=""CoreITLogo"" height=""30"" width=""130""/>";
+            string singnatur = "<p>Servicedesk +46 (0)660-729 99<br/>Mail:    helpit@coreit.se<br/>Webb: www.coreit.se<br/>Postadress: Box 407, 891 28 Örnsköldsvik<br/>Besöksadress: Hörneborgsvägen 11, 892 50 Domsjö<br/>" + Logga + "</p>";
 
             var messageToNewContact = new MailMessage();
             messageToNewContact.To.Add(contact.Email);
