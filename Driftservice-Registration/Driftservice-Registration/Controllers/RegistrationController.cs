@@ -124,6 +124,7 @@ namespace DriftService.Controllers
                         ContactGuid = Guid.NewGuid(),
                         ContactID = ID,
                         RegDate = DateTime.Now,
+                        Language = 1,
                     };
 
                     db.Contacts.Add(contact);

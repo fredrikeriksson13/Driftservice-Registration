@@ -47,6 +47,7 @@ namespace DriftService.Models
         public List<int> SelectedServiceTypeList { get; set; }
 
         public string ContactGuidAsString { get; set; }
+        public int Language { get; set; }
 
     }
 }
