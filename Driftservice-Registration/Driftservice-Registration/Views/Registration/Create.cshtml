@@ -14,11 +14,12 @@
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        
+
         <div class="row">
             <div class="col-lg-6">
+                <h4><b>Prenumerera på driftinformation</b></h4>
                 <p>
-                    <b>Prenumerera på driftinformation</b><br />Fyll i din e-postadress och mobilnummer samt välj vilken/vilka prenumerationer du vill anmäla dig till. Du får då information när vi publicerar ny driftinformation för respektive område.
+                    Fyll i din e-postadress och mobilnummer samt välj vilken/vilka prenumerationer du vill anmäla dig till. Du får då information när vi publicerar ny driftinformation för respektive område.
                     Känner du dig osäker vilka tjänster du skall fylla i? Fyll i det du tror är rätt, vår Servicedesk kommer att uppdatera och justera om det behövs.
                 </p>
                 <br />
@@ -62,81 +63,81 @@
                         @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
                     </div>
                 </div>
-              </div>
+            </div>
 
-                <div class="col-xs-6 col-md-6 col-lg-6">
-                    <h4><b>Valbara tjänster</b></h4>
-                    @{
-                        bool MatchingID = false;
-                    }
-                   
-                        @foreach (var item in Model.ServiceTypeList)
+            <div class="col-xs-6 col-md-6 col-lg-6">
+                <h4><b>Valbara tjänster</b></h4>
+                @{
+                    bool MatchingID = false;
+                }
+
+                @foreach (var item in Model.ServiceTypeList)
+                {
+                    if (Model.SelectedServiceTypeList != null)
+                    {
+
+                        if (Model.SelectedServiceTypeList.Any(x => x == item.ServiceTypeID))
                         {
-                            if (Model.SelectedServiceTypeList != null)
-                            {
-
-                                if (Model.SelectedServiceTypeList.Any(x => x == item.ServiceTypeID))
-                                {
-                                    MatchingID = true;
-                                }
-                                else
-                                {
-                                    MatchingID = false;
-                                }
-
-                            }
-
-                        <div class="ServiceTypeBlock">
-                            <center><label for="@item.Description">@item.Description</label></center>
-                            <div class="ServiceTypeCheckBox">
-                                <input type="checkbox" class="checkbox" name="SelectedServiceType" value="@item.ServiceTypeID" id="@item.ServiceTypeID" checked="@MatchingID"/>
-                            </div>
-                        </div>
+                            MatchingID = true;
                         }
-                   
-                    <div class="text-danger">
-                        @ViewBag.ErrorMessageServiceType
-                   </div>
-                 </div>
-            </div>
+                        else
+                        {
+                            MatchingID = false;
+                        }
 
-            <div class="row">
-                <div class="col-xs-2 col-md-2 col-lg-offset-2">
-                    <h4><b>Val av notifiering</b></h4>
-                    <div class="BorderBlack">
-                            <div class="row text-aligin-left margin-10px">
-                                @Html.CheckBoxFor(m => m.SelectedSms)SMS
-                            </div>
-                            <div class="row text-aligin-left margin-10px">
-                                @Html.CheckBoxFor(m => m.SelectedEmail)Email
-                            </div>
-                     </div>
-                    <div class="text-danger">
-                        @ViewBag.ErrorMessageNotificationType
+                    }
+
+                    <div class="ServiceTypeBlock">
+                        <center><p for="@item.Description">@item.Description</p></center>
+                        <div class="ServiceTypeCheckBox">
+                            <input type="checkbox" class="checkbox" name="SelectedServiceType" value="@item.ServiceTypeID" id="@item.ServiceTypeID" checked="@MatchingID" />
+                        </div>
                     </div>
-                </div>
-                <div id="Recaptcha" align="right">
-                    @Html.Recaptcha()
-                    <div class="text-danger">
-                        @ViewBag.Recaptcha
-                    </div>
+                }
+
+                <div class="text-danger">
+                    @ViewBag.ErrorMessageServiceType
                 </div>
             </div>
-        <br/>
-        
-            <div class="row">
-                <div class="col-xs-12 col-md-12 col-lg-12 text-aligin-right">
-                  <input type="submit" value="Registrera" class="btn btn-default" />
-               </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-2 col-md-2 col-lg-offset-2">
+                <h4><b>Val av notifiering</b></h4>
+                <div class="BorderBlack">
+                    <div class="row text-aligin-left margin-10px">
+                        @Html.CheckBoxFor(m => m.SelectedSms)SMS
+                    </div>
+                    <div class="row text-aligin-left margin-10px">
+                        @Html.CheckBoxFor(m => m.SelectedEmail)Email
+                    </div>
+                </div>
+                <div class="text-danger">
+                    @ViewBag.ErrorMessageNotificationType
+                </div>
             </div>
-         </div>  
-         
+            <div id="Recaptcha" align="right">
+                @Html.Recaptcha()
+                <div class="text-danger">
+                    @ViewBag.Recaptcha
+                </div>
+            </div>
+        </div>
+        <br />
 
-            @section Scripts {
-                @Scripts.Render("~/bundles/Customjquery")
-                @Scripts.Render("~/bundles/jqueryval")
+        <div class="row">
+            <div class="col-xs-12 col-md-12 col-lg-12 text-aligin-right">
+                <input type="submit" value="Registrera" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
 
-            }
-            }
+
+        @section Scripts {
+            @Scripts.Render("~/bundles/Customjquery")
+            @Scripts.Render("~/bundles/jqueryval")
+
+        }
+                    }
 
 
