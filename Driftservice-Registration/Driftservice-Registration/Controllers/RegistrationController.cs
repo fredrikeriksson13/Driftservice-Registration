@@ -1,6 +1,5 @@
 ﻿using DriftService.Context;
 using DriftService.Models;
-using reCAPTCHA.MVC;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -10,6 +9,7 @@ using System.Net.Mail;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using CaptchaMvc.HtmlHelpers;
 
 namespace DriftService.Controllers
 {
@@ -31,26 +31,33 @@ namespace DriftService.Controllers
             {
                 return HttpNotFound();
             }
-
-             return View(contactViewModel);
+            ViewBag.captcha = "Vänligen skriv in bokstäverna du ser i rutan i fälted nedanför.";
+            return View(contactViewModel);
         }
 
         //POST: Contact/Create
         [HttpPost]
-        [CaptchaValidator]
-        public async Task <ActionResult> Create(ContactViewModel contactViewModel, int[] SelectedServiceType, bool captchaValid)
+        public async Task <ActionResult> Create(ContactViewModel contactViewModel, int[] SelectedServiceType)
         {
+           
             try
             {
-                if (!ModelState.IsValid || (db.Contacts.Any(x => x.Email == contactViewModel.Email)) || (db.Contacts.Any(x => x.PhoneNumber == contactViewModel.PhoneNumber)) || /*(SelectedServiceType == null) ||*/ (contactViewModel.SelectedSms == false && contactViewModel.SelectedEmail == false))//ha alla vilkor for icke-Godkänd
+                if ((this.IsCaptchaValid("") == false) || (db.Contacts.Any(x => x.Email == contactViewModel.Email)) || (db.Contacts.Any(x => x.PhoneNumber == contactViewModel.PhoneNumber)) || /*(SelectedServiceType == null) ||*/ (contactViewModel.SelectedSms == false && contactViewModel.SelectedEmail == false))//ha alla vilkor for icke-Godkänd
                 {
                     contactViewModel.ServiceTypeList = db.ServiceTypes.ToList();
                     contactViewModel.ServiceTypeList.RemoveAll(x => x.PublicServiceType == false);
                     contactViewModel.SelectedSms = contactViewModel.SelectedSms;
                     contactViewModel.SelectedEmail = contactViewModel.SelectedEmail;
 
-                    if (!captchaValid)
-                        ViewBag.Recaptcha = "Vänligen verifiera att du inte är en robot";
+                    if (this.IsCaptchaValid("") == false)
+                    {
+                        ViewBag.captchaError = "Fel bokstäver ifyllt ovan, eller i ett av de andra fälten";
+                    }
+                    else
+                    {
+                        ViewBag.captchaError = "";
+                        ViewBag.captcha = "Vänligen skriv in bokstäverna du ser i rutan i fälted nedanför.";
+                    }
 
                     if (db.Contacts.Any(x => x.Email == contactViewModel.Email))
                     {
@@ -141,6 +148,7 @@ namespace DriftService.Controllers
                 contactViewModel.ServiceTypeList = db.ServiceTypes.ToList();
                 contactViewModel.SelectedSms = contactViewModel.SelectedSms;
                 contactViewModel.SelectedEmail = contactViewModel.SelectedEmail;
+                ViewBag.captcha = "Vänligen skriv in bokstäverna du ser i rutan i fälted nedanför.";
                 if (SelectedServiceType != null)
                 {
                     contactViewModel.SelectedServiceTypeList = SelectedServiceType.ToList();

@@ -115,8 +115,16 @@ footer {
 }
 
 #Recaptcha{
-    margin-top: 40px;
     margin-right: 14px;
+    color:white;
+}
+
+#captchaErrorMessage{
+    color: darkred;
+}
+
+#captchaText{
+    color: black;
 }
 
 .margin-10px{

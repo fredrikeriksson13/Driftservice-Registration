@@ -8,7 +8,8 @@
         <h2><b>Registrering</b></h2>
     </div>
 </div>
-@using reCAPTCHA.MVC
+
+@using CaptchaMvc.HtmlHelpers
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -87,12 +88,12 @@
 
                     }
 
-                    <div class="ServiceTypeBlock">
-                        <center><p for="@item.Description">@item.Description</p></center>
-                        <div class="ServiceTypeCheckBox">
-                            <input type="checkbox" class="checkbox" name="SelectedServiceType" value="@item.ServiceTypeID" id="@item.ServiceTypeID" checked="@MatchingID" />
-                        </div>
+                <div class="ServiceTypeBlock">
+                    <center><p for="@item.Description">@item.Description</p></center>
+                    <div class="ServiceTypeCheckBox">
+                        <input type="checkbox" class="checkbox" name="SelectedServiceType" value="@item.ServiceTypeID" id="@item.ServiceTypeID" checked="@MatchingID" />
                     </div>
+                </div>
                 }
 
                 <div class="text-danger">
@@ -117,10 +118,9 @@
                 </div>
             </div>
             <div id="Recaptcha" align="right">
-                @Html.Recaptcha()
-                <div class="text-danger">
-                    @ViewBag.Recaptcha
-                </div>
+                @Html.Captcha(4)<br />
+                <span id="captchaErrorMessage">@ViewBag.captchaError</span>
+                <span id="captchaText">@ViewBag.captcha</span>
             </div>
         </div>
         <br />
@@ -133,11 +133,11 @@
     </div>
 
 
-        @section Scripts {
-            @Scripts.Render("~/bundles/Customjquery")
-            @Scripts.Render("~/bundles/jqueryval")
+    @section Scripts {
+        @Scripts.Render("~/bundles/Customjquery")
+        @Scripts.Render("~/bundles/jqueryval")
 
-        }
+    }
                     }
 
 
